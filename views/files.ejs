@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- title and files passed in from getFiles file.controller function -->
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <% if (files.length === 0) { %>
+        <p>You haven't uploaded any files yet. </p>
+    <% } else { %>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size (KB)</th>
+                    <th>Uploaded At</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% files.forEach(file => { %>
+                    <tr>
+                        <td><%= file.name %></td>
+                        <td><%= (file.size / 1024).toFixed(2) %></td>
+                        <td><%= new Date(file.uploadedAt).toLocaleString() %></td>
+                        <td>
+                            <a href="<%= file.url %>" target="_blank" download>
+                                <button>Download</button>
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+    <br>
+    <div>
+        <a href="/dashboard">Go Back to Folders</a>
+    </div>
+    <br>
+    <div>
+        <a href="/files/upload">Upload a New File</a>
+    </div>
+    <br>
+    <div>
+        <a href="/auth/logout">Logout</a>
+    </div>
+  </body>
+</html>

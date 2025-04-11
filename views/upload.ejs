@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- only authenticated users can upload a file 
+    title and folders passed in from renderUpload page.controller function -->
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <!-- enctype specifies how form data should be encoded when submitted to the server 
+     multipart/form-data is required when a form includes file uploads -->
+    <form action="/files/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required />
+      <select name="folderId">
+        <option value="">No Folder</option>
+        <% folders.forEach(folder => { %>
+            <option value="<%= folder.id %>"><%= folder.name %></option>
+        <% }) %>
+    </select>
+      <button type="submit">Upload</button>
+    </form>
+    <br>
+    <div>
+        <a href="/files">View All Files</a>
+    </div>
+    <br>
+    <div>
+        <a href="/dashboard">Go Back to Folders</a>
+    </div>
+    <br>
+    <div>
+        <a href="/auth/logout">Logout</a>
+    </div>
+  </body>
+</html>

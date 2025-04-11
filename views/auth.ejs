@@ -1,0 +1,63 @@
+<!-- shared login/register form view 
+ dynamically toggled with query string (?mode=login or ?mode=register)
+ displays correct form and action URL based on the mode -->
+<!doctype html>
+<html>
+  <head>
+    <!-- title and mode passed in from renderAuth auth.controller function -->
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= mode== 'login' ? 'Login' : 'Register' %></h1>
+    <% if (mode === 'login') { %>
+        <!-- submitting form goes to this backend endpoint path which accepts 
+         POST request to submit login (processing login credentials via POST)
+         req.body contains the actual login form fields, email and password 
+         req.body gets used by passport-local strategy to authenticate the user -->
+        <form action="/auth/login" method="POST">
+            <div>
+                <label for="email">Username:</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+        <!-- navigates to /auth route, with mode query parameter passed in,
+         ?mode=value is UI toggle for rendering the register or login form within this
+         shared template 
+         when value is register, renders register form 
+         - req.query - query string in the URL for optional toggles or filters -->
+        <p>Don't have an account? <a href="/auth?mode=register">Register here</a></p>
+    <% } else { %>
+        <!-- renders register form -->
+        <form action="/auth/register" method="POST">
+            <div>
+                <label for="name">Full Name:</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+            <br>
+            <div>
+                <label for="email">Username:</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <br>
+            <button type="submit">Register</button>
+        </form>
+        <!-- when value is login, renders login form 
+         req.query (how query parameter moves from browser to EJS template): 
+         1. user clicks link with query parameter, ?mode=login 
+         2. client browser sends HTTP GET request -->
+        <p>Already have an account? <a href="/auth?mode=login">Login here</a></p>
+    <% } %>
+  </body>
+</html>

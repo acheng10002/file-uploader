@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- title, user, folders, and files all passed in from renderDashboard page.controller function -->
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= user.name%>'s Folders</h1>
+    <h2>Create a New Folder</h2>
+    <form action="/files/folder" method="POST">
+        <input type="text" name="folderName" placeholder="Folder Name" required>
+        <button type="submit">Create</button>
+    </form>
+    <h2>Folders</h2>
+    <ul>
+        <% folders.forEach(folder => { %>
+            <li>
+                <strong><%= folder.name %></strong>
+                <form action="/files/folder/update/<%= folder.id %>" method="POST" style="display: inline;">
+                    <input type="text" name="newName" placeholder="New name" required />
+                    <button type="submit">Rename</button>
+                </form>
+                <form action="/files/folder/delete/<%= folder.id %>" method="POST" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <ul>
+                    <% folder.files.forEach(file => { %>
+                        <!-- target specifies to open the linked document in a new window or tab -->
+                        <!-- <li><a href="<%= file.url %>" target="_blank"><%= file.name %></a></li> -->
+                        <li><%= file.name %></li>
+                    <% }) %>
+                </ul>
+                <br>
+            </li>
+        <% }) %>
+    </ul>
+    <h2>Standalone Files</h2>
+    <ul>
+        <% files.forEach(file => {%>
+            <li><%= file.name %></li>
+        <% }) %>
+    </ul>
+    <div>
+        <a href="/files">View All Files</a>
+    </div>
+    <br>
+    <div>
+        <a href="/files/upload">Upload a New File</a>
+    </div>
+    <br>
+    <div>
+        <a href="/auth/logout">Logout</a>
+    </div>
+  </body>
+</html>
