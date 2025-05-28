@@ -12,7 +12,7 @@ exports.createFolder = async (req, res) => {
     if (!folderName) return res.status(400).send("Folder name is required");
 
     // authenticated user - uses req.user.id set by passport.deserializeUser()
-    // service call - calls a service method to save the fodler to the DB
+    // service call - calls a service method to save the folder to the DB
     await fileService.createFolder(req.user.id, folderName);
     // redirects user to /dashboard after success
     res.redirect("../dashboard");

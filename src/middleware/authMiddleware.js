@@ -1,5 +1,5 @@
 /* protects routes by checking if req.user is set/rehydrated by Passport 
-req - req object represents the incoming HTTP reqest
+req - req object represents the incoming HTTP request
 res - res object represents the HTTP response that will be sent back to the client
 next - function that passes control to the next middleware */
 exports.ensureAuthenticated = (req, res, next) => {
