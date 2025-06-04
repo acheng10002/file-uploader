@@ -64,6 +64,4 @@ app.use("/files", fileRoutes);
 
 const PORT = process.env.PORT;
 // starts the server, tells it to listen for incoming request on specified port
-app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`Server running`));
